@@ -14,9 +14,9 @@ train_dataset = MockDataset(
     pos_n=1000,
     neg_n=1000,
     pos_mean=150,
-    pos_std=80,
+    pos_std=50,
     neg_mean=200,
-    neg_std=100
+    neg_std=80
 )
 
 train_dataset.data.shape
@@ -42,21 +42,20 @@ loss_module = nn.BCEWithLogitsLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
 
 train_data_loader = data.DataLoader(train_dataset, batch_size=20, shuffle=True)
-   
 train_model(model, optimizer, train_data_loader, loss_module)
 ```
 
 ```python
 test_dataset = MockDataset(
     features=5,
-    pos_n=100,
-    neg_n=100,
+    pos_n=1000,
+    neg_n=1000,
     pos_mean=150,
-    pos_std=80,
+    pos_std=50,
     neg_mean=200,
-    neg_std=100
+    neg_std=80
 )
 test_data_loader = data.DataLoader(test_dataset, batch_size=10, shuffle=False, drop_last=False) 
 eval_model(model, test_data_loader)
->> 
+>> Accuracy of the model: 90.50%
 ```
