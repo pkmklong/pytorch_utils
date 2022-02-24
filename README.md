@@ -1,4 +1,4 @@
-# pytroch_utils (WIP)
+# pytorch_utils (WIP)
 
 <b>Installation</b>
 
