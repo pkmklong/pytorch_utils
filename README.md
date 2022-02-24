@@ -11,7 +11,7 @@ from pytorch.utils import MockDataset
 
 train_dataset = MockDataset(
     features=5,
-    pos_n=1000,
+    pos_n=500,
     neg_n=1000,
     pos_mean=150,
     pos_std=50,
