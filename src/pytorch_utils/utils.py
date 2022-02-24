@@ -60,8 +60,7 @@ class MockDataset(data.Dataset):
             data_cols = np.vstack((data_cols,temp))
         return data_cols.T
 
-    def generate_data(self):
-        
+    def generate_data(self):     
         pos_data = self.generate_col(self.pos_mean, self.pos_std, self.pos_n)
         neg_data = self.generate_col(self.neg_mean, self.neg_std, self.neg_n)
         data = np.vstack((pos_data,neg_data))
@@ -79,7 +78,6 @@ class MockDataset(data.Dataset):
         data_label = self.label[idx]
         return data_point, data_label
     
-    
     def to_df(self, row_ids=False, label=False):
         df = pd.DataFrame(self.data.numpy())
         df.columns = [f"col_{c}" for c in df.columns]
@@ -88,6 +86,20 @@ class MockDataset(data.Dataset):
         if label:
             df["label"] = self.label
         return df
+    
+    @staticmethod
+    def sort_to_sequence(df, exclude_cols):
+        df = df.copy()  
+        cols_space = (df.shape[1]-len(exclude_cols))
+        np_seq = np.empty((0, cols_space))  
+        for row in df.row_ids:
+            df_temp = df[df["row_ids"]==row].drop(exclude_cols, axis = 1). \
+            T.sort_values(by=row).reset_index()
+            np_temp = df_temp.T.values[0].reshape(1,-1)
+            np_seq = np.concatenate([np_seq,np_temp],axis=0)
+        return np_seq
+
+
 
     
 class MyModule(nn.Module):
