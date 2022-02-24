@@ -34,7 +34,7 @@ print(df.head(5))
 visualize_data(train_dataset.data, train_dataset.label, x1=1, x2=2)
 plt.show()
 ```
-<img src="https://github.com/pkmklong/pytorch_utils/blob/main/images/demo_data.png" class="center" title="Synthetic Data Plotting">
+<img src="https://github.com/pkmklong/pytorch_utils/blob/main/images/demo_data.png" height="400"class="center" title="Synthetic Data Plotting">
 
 ```python
 model = MyModule(n_input=5)
@@ -44,7 +44,7 @@ optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
 train_data_loader = data.DataLoader(train_dataset, batch_size=20, shuffle=True)
 train_model(model, optimizer, train_data_loader, loss_module)
 ```
-<img src="https://github.com/pkmklong/pytorch_utils/blob/main/images/progress_bar.png" height="400" class="center" title="Model Training Progress Bar">
+<img src="https://github.com/pkmklong/pytorch_utils/blob/main/images/progress_bar.png" height="50" class="center" title="Model Training Progress Bar">
 
 ```python
 test_dataset = MockDataset(
