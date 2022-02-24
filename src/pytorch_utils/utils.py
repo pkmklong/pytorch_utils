@@ -88,18 +88,16 @@ class MockDataset(data.Dataset):
         return df
     
     @staticmethod
-    def sort_to_sequence(df, exclude_cols):
+    def sort_to_sequence(df, key_col, exclude_cols):
         df = df.copy()  
         cols_space = (df.shape[1]-len(exclude_cols))
         np_seq = np.empty((0, cols_space))  
-        for row in df.row_ids:
-            df_temp = df[df["row_ids"]==row].drop(exclude_cols, axis = 1). \
-            T.sort_values(by=row).reset_index()
+        for key in tqdm(df[key_col]):
+            df_temp = df[df[key_col]==key].drop(exclude_cols, axis = 1). \
+            T.sort_values(by=key).reset_index()
             np_temp = df_temp.T.values[0].reshape(1,-1)
             np_seq = np.concatenate([np_seq,np_temp],axis=0)
         return np_seq
-
-
 
     
 class MyModule(nn.Module):
