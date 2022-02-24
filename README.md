@@ -4,7 +4,7 @@
 
     $ python3 -m pip install git+https://github.com/pkmklong/pytorch_utils.git
  
-<i>Forward mapping</i>
+<i>Synthetic Data Generation</i>
 
 ```python
 from pytorch.utils import MockDataset
