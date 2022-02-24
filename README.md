@@ -11,40 +11,16 @@ from pytorch.utils import MockDataset
 
 train_dataset = MockDataset(
     features=5,
-    pos_n=100,
-    neg_n=100,
+    pos_n=500,
+    neg_n=1000,
     pos_mean=150,
-    pos_std=80,
+    pos_std=50,
     neg_mean=200,
-    neg_std=100
+    neg_std=80
 )
-    
-train_dataset.data
->> tensor([[120.8692,  96.8306,  77.1077,  ..., 288.5028, 139.9560,  97.9168],
->>         [ 41.1911, -82.3300, 133.0649,  ..., 295.8810, 375.1372, 178.4848],
->>         [133.8616,  10.1892, 116.5640,  ..., 117.4343, 165.8598, 385.8340],
->>         ...,
->>         [226.8078,  56.6908,  68.1813,  ..., 185.2966, 166.0162, 224.8710],
->>         [243.6762,  99.0662, 165.8202,  ..., 169.0571, 160.4391, 141.3412],
->>         [  7.1814, 268.7216, 274.3542,  ..., 308.0595, 421.0810, 193.6014]],
->>        dtype=torch.float64)
 
 train_dataset.data.shape
->> torch.Size([200, 5])
-
-train_dataset.label
->> tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
->>        1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
->>        1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
->>        1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
->>        1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
->>        1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 0., 0., 0., 0., 0., 0., 0., 0.,
->>        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
->>        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
->>        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
->>        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
->>        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
->>        0., 0.], dtype=torch.float64)
+>> torch.Size([2000, 5])
 
 df = train_dataset.to_df(row_ids=True, label=True)
 print(df.head(5))
@@ -55,10 +31,31 @@ print(df.head(5))
 >> 3  335.195282  222.256516  133.536621   34.579933  215.421402        3    1.0
 >> 4  351.968506  375.252045  112.089806  200.617950  175.515839        4    1.0  
 
-
 visualize_data(train_dataset.data, train_dataset.label, x1=1, x2=2)
 plt.show()
+```
+<img src="https://github.com/pkmklong/pytorch_utils/blob/main/images/demo_data.png" height="400" class="center" title="Synthetic Data Plotting">
 
-<img src="https://github.com/pkmklong/pytorch_utils/blob/master/images/demo_data.png" height="400"  class="center" title="
-Syntheti Data Plotting">
+```python
+model = MyModule(n_input=5)
+loss_module = nn.BCEWithLogitsLoss()
+optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
 
+train_data_loader = data.DataLoader(train_dataset, batch_size=20, shuffle=True)
+train_model(model, optimizer, train_data_loader, loss_module)
+```
+
+```python
+test_dataset = MockDataset(
+    features=5,
+    pos_n=1000,
+    neg_n=1000,
+    pos_mean=150,
+    pos_std=50,
+    neg_mean=200,
+    neg_std=80
+)
+test_data_loader = data.DataLoader(test_dataset, batch_size=10, shuffle=False, drop_last=False) 
+eval_model(model, test_data_loader)
+>> Accuracy of the model: 90.50%
+```
