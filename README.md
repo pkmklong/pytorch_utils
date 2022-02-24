@@ -11,8 +11,8 @@ from pytorch.utils import MockDataset
 
 train_dataset = MockDataset(
     features=5,
-    pos_n=100,
-    neg_n=100,
+    pos_n=1000,
+    neg_n=1000,
     pos_mean=150,
     pos_std=80,
     neg_mean=200,
@@ -20,7 +20,7 @@ train_dataset = MockDataset(
 )
 
 train_dataset.data.shape
->> torch.Size([200, 5])
+>> torch.Size([2000, 5])
 
 df = train_dataset.to_df(row_ids=True, label=True)
 print(df.head(5))
@@ -36,3 +36,27 @@ plt.show()
 ```
 <img src="https://github.com/pkmklong/pytorch_utils/blob/main/images/demo_data.png" height="400" class="center" title="Synthetic Data Plotting">
 
+```python
+model = MyModule(n_input=5)
+loss_module = nn.BCEWithLogitsLoss()
+optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
+
+train_data_loader = data.DataLoader(train_dataset, batch_size=20, shuffle=True)
+   
+train_model(model, optimizer, train_data_loader, loss_module)
+```
+
+```python
+test_dataset = MockDataset(
+    features=5,
+    pos_n=100,
+    neg_n=100,
+    pos_mean=150,
+    pos_std=80,
+    neg_mean=200,
+    neg_std=100
+)
+test_data_loader = data.DataLoader(test_dataset, batch_size=10, shuffle=False, drop_last=False) 
+eval_model(model, test_data_loader)
+>> 
+```
