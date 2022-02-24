@@ -58,6 +58,6 @@ print(df.head(5))
 
 visualize_data(train_dataset.data, train_dataset.label, x1=1, x2=2)
 plt.show()
-
+```
 <img src="https://github.com/pkmklong/pytorch_utils/blob/main/images/demo_data.png" height="200" class="center" title="Synthetic Data Plotting">
 
