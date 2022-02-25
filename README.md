@@ -60,3 +60,29 @@ test_data_loader = data.DataLoader(test_dataset, batch_size=10, shuffle=False, d
 eval_model(model, test_data_loader)
 >> Accuracy of the model: 90.50%
 ```
+
+```python
+train_dataset = MockDataset(
+    features=10,
+    pos_n=100,
+    neg_n=100,
+    pos_mean=150,
+    pos_std=50,
+    neg_mean=200,
+    neg_std=80
+)
+df = train_dataset.to_df(row_ids=True, label=True)
+exclude_cols = ["row_ids", "label"]
+
+df_seq = sort_to_sequence(df, key_col="row_ids", exclude_cols=exclude_cols)
+
+df_seq
+>> array([['col_0', 'col_3', 'col_7', ..., 'col_6', 'col_8', 'col_1'],
+>>        ['col_0', 'col_8', 'col_5', ..., 'col_7', 'col_3', 'col_6'],
+>>        ['col_0', 'col_5', 'col_3', ..., 'col_4', 'col_8', 'col_7'],
+>>        ...,
+>>        ['col_0', 'col_1', 'col_8', ..., 'col_3', 'col_4', 'col_5'],
+>>        ['col_7', 'col_1', 'col_6', ..., 'col_3', 'col_4', 'col_8'],
+>>        ['col_8', 'col_2', 'col_9', ..., 'col_1', 'col_6', 'col_5']],
+>>       dtype=object)
+```
