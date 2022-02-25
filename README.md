@@ -36,20 +36,6 @@ plt.show()
 ```
 <img src="https://github.com/pkmklong/pytorch_utils/blob/main/images/demo_data.png" height="400" class="center" title="Synthetic Data Plotting">
 
-```python
-test_dataset = MockDataset(
-    features=5,
-    pos_n=1000,
-    neg_n=1000,
-    pos_mean=150,
-    pos_std=50,
-    neg_mean=200,
-    neg_std=80
-)
-test_data_loader = data.DataLoader(test_dataset, batch_size=10, shuffle=False, drop_last=False) 
-eval_model(model, test_data_loader)
->> Accuracy of the model: 90.50%
-```
 
 <i>Data to seq conversion</i>
 ```python
@@ -79,6 +65,7 @@ df_seq
 ```
 
 <i>Model Testing</i>
+
 ```python
 model = MyModule(n_input=5)
 loss_module = nn.BCEWithLogitsLoss()
@@ -88,4 +75,19 @@ train_data_loader = data.DataLoader(train_dataset, batch_size=20, shuffle=True)
 train_model(model, optimizer, train_data_loader, loss_module)
 ```
 <img src="https://github.com/pkmklong/pytorch_utils/blob/main/images/progress_bar.png" height="50" class="center" title="Model Training Progress Bar">
+
+```python
+test_dataset = MockDataset(
+    features=5,
+    pos_n=1000,
+    neg_n=1000,
+    pos_mean=150,
+    pos_std=50,
+    neg_mean=200,
+    neg_std=80
+)
+test_data_loader = data.DataLoader(test_dataset, batch_size=10, shuffle=False, drop_last=False) 
+eval_model(model, test_data_loader)
+>> Accuracy of the model: 90.50%
+```
 
