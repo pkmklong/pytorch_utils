@@ -154,9 +154,9 @@ def train_model(model, optimizer, data_loader, loss_module, num_epochs=100):
             preds = preds.squeeze(dim=1) 
 
             loss = loss_module(preds, data_labels.float())
-            optimizer.zero_grad()
             loss.backward()
             optimizer.step()
+            optimizer.zero_grad()
             
 
 def eval_model(model, data_loader):
